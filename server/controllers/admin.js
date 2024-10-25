@@ -101,6 +101,45 @@ const newProductF = (req, res) => {
 
 };
 
+const editProductDataF = (req, res) => {
+    const { name, category, subCategory1, subCategory2, price, manufacturerName, description,
+        quantity, gst, minPurchase, docLinks, location, shipping, prodWeight, dimensions,
+        faqs, options, oldPics
+    } = req.body
+
+    const productImgs = req.files['prodImages']?.map((file) => file.filename).join(',')
+    const faqStr = Array.isArray(faqs) || typeof faqs === 'object' ? JSON.stringify(faqs) : faqs;
+    const optionsStr = Array.isArray(options) || typeof options === 'object' ? JSON.stringify(options) : options;
+    const dimensionStr = JSON.stringify(dimensions);
+
+    const pics = productImgs ? productImgs : oldPics
+
+    const values = [
+        name,
+        category,
+        subCategory1,
+        subCategory2,
+        price,
+        manufacturerName,
+        description,
+        quantity,
+        gst,
+        minPurchase,
+        docLinks,
+        location,
+        shipping,
+        prodWeight,
+        dimensionStr,
+        faqStr,
+        optionsStr,
+
+        pics
+    ]
+
+    console.log(values, " editProd")
+
+}
+
 
 
 const getProductsF = (req, res) => {
@@ -117,7 +156,63 @@ const getProductsF = (req, res) => {
             res.status(200).send(data)
         }
     })
+};
+
+const chgFeaturedF = (req, res) => {
+    const { id, num } = req.body
+    const featuredValue = num == 1 ? '0' : '1'
+    const q = "UPDATE products SET `featured`=? WHERE id=?"
+
+
+    db.query(q, [featuredValue, id], (err, data) => {
+        if (err) {
+            res.status(500).send({ message: err.message })
+        } else {
+            res.status(200).send({ message: "success" })
+        }
+    })
+
+};
+
+const chgActiveF = (req, res) => {
+    const { id, num } = req.body
+    const activeValue = num == 1 ? '0' : '1'
+    const q = "UPDATE products SET `active`=? WHERE id=?"
+
+    db.query(q, [activeValue, id], (err, data) => {
+        if (err) {
+            console.log(err)
+            //res.status(500).send({message:err.message})
+        } else {
+            console.log(data)
+            //res.status(200).send({message:"success"})
+        }
+    })
+};
+
+
+const editProductF = (req, res) => {
+    const { id } = req.params;
+    const q = "SELECT * FROM products WHERE id=?"
+
+    db.query(q, [id], (err, data) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send({ message: err.message })
+        } else {
+            res.status(200).send(data)
+        }
+    })
+
+    console.log(id, " edit")
+};
+
+
+
+
+
+
+export {
+    bannerF, postBannerF, newProductF, getProductsF, chgFeaturedF,
+    chgActiveF, editProductF, editProductDataF
 }
-
-
-export { bannerF, postBannerF, newProductF, getProductsF }

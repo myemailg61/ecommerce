@@ -109,6 +109,16 @@ const prodDetailsF = (req, res) => {
     })
 }
 
+const featuredPF = (req, res) => {
+    const q = "SELECT id,name,price,prodImages FROM products WHERE featured=1"
+    db.query(q, (err, data) => {
+        if (err) {
+            res.status(403).send({ "message": err.message })
+        } else {
+            res.status(201).send(data)
+        }
+    })
+}
 
 
 
@@ -116,4 +126,5 @@ const prodDetailsF = (req, res) => {
 
 
 
-export { login2F, getBannerF, getCategoryF, getSubCatF, prodDetailsF }
+
+export { login2F, getBannerF, getCategoryF, getSubCatF, prodDetailsF, featuredPF }

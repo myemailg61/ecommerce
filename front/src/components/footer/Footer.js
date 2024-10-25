@@ -30,6 +30,10 @@ const Footer = () => {
                     <img src={facebook} className='w-8'></img>
                     <img src={insta} className='w-8'></img>
                 </div>
+                <p className='font-font1 mt-2'><span className='font-semibold'>Address: </span>4A, Shree Sadgurunivas Society., 16/5/1 Hingane Khurd,
+                    Near Manik Baugh, Sinhgad Road, Pune : 411051 (India)</p>
+
+                <p className='font-font1 mt-2'><span className='font-semibold'>Contact Us: </span>+ 91 9850588864</p>
             </div>
         </div>
     )

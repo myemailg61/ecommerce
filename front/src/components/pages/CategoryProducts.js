@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const CategoryProducts = () => {
     const [data, setData] = useState()
     const [name, setName] = useState('')
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         const name = localStorage.getItem("subCat")
@@ -23,6 +25,14 @@ const CategoryProducts = () => {
 
         getData();
     }, [])
+
+    const cartHnd = () => {
+        const token = localStorage.getItem("token")
+        if (!token) {
+            navigate("/login")
+        }
+    }
+
     return (
         <div className='mt-28 mb-20'>
             <p className='font-font1 text-3xl font-semibold text-center mb-8'>{name}</p>
@@ -35,7 +45,7 @@ const CategoryProducts = () => {
                         <p className='font-font1 text-center mt-4 text-xl font-semibold'>{item.name}</p>
                         <p className='text-center font-font1 text-lg'>Rs.{item.price}.00</p>
                         <div className='flex flex-row justify-center gap-4 mb-2 mt-4 border-t border-gray-300'>
-                            <button className='bg-blue-300 px-4 py-2 rounded-md hover:bg-blue-400 mt-2'>Add To Cart</button>
+                            <button onClick={cartHnd} className='bg-blue-300 px-4 py-2 rounded-md hover:bg-blue-400 mt-2'>Add To Cart</button>
                             <Link to={`/details/${item.id}`}><button className='bg-blue-300 px-4 py-2 rounded-md hover:bg-blue-400 mt-2'>Details</button></Link>
                         </div>
                     </div>

@@ -1,14 +1,19 @@
 // Navbar.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const Navi = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [userName, setUserName] = useState(null)
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+
+    useEffect(() => {
+        setUserName(localStorage.getItem('name'))
+    }, [])
 
     return (
         <nav className="bg-gray-800 fixed w-full top-0 left-0 z-50 shadow-md">
@@ -38,7 +43,9 @@ const Navi = () => {
                             Contact
                         </NavLink>
 
-                        <Link to='/login'> <button className='bg-white px-4 py-1 font-font1 rounded-lg hover:bg-gray-200'>Login</button></Link>
+                        {userName && <p className='text-white font-font1 text-lg font-semibold'>{userName.toUpperCase()}</p>}
+
+                        <Link to='/login'> <button className='bg-white px-4 py-1 font-font1 rounded-lg hover:bg-gray-200'>{userName ? 'Logout' : 'Login'}</button></Link>
                     </div>
                     <div className="-mr-2 flex md:hidden">
                         <button

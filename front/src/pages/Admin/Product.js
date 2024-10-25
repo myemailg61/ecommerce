@@ -264,6 +264,7 @@ const Product = () => {
                 formdata.append(`faqs[${index}][question]`, faq.question);
                 formdata.append(`faqs[${index}][answer]`, faq.answer);
             });
+            //options
             formData.options.forEach((option, index) => {
                 formdata.append(`options[${index}][name]`, option.name);
                 formdata.append(`options[${index}][quantity]`, option.quantity);

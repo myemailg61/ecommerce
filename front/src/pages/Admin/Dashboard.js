@@ -12,14 +12,17 @@ const Dashboard = () => {
         setDummy(!dummy)
     }
 
-    useEffect(() => {
-        localStorage.setItem("option", "add")
-    }, [])
+    // useEffect(() => {
+    //     localStorage.setItem("option", "add")
+    // }, [])
 
     useEffect(() => {
         const getOption = () => {
             const res = localStorage.getItem("option")
-            setOption(res)
+            if (res) {
+                setOption(res)
+            }
+
         }
 
         getOption()

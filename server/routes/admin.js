@@ -2,7 +2,10 @@ import express from 'express'
 import multer from 'multer';
 import path from 'path'
 import bodyParser from 'body-parser'
-import { bannerF, postBannerF, newProductF, getProductsF } from '../controllers/admin.js'
+import {
+    bannerF, postBannerF, newProductF, getProductsF, chgFeaturedF,
+    chgActiveF, editProductF, editProductDataF
+} from '../controllers/admin.js'
 
 const app = express.Router();
 app.use(bodyParser.json());
@@ -27,5 +30,13 @@ app.post('/postBanner', upload.fields([{ name: 'profile', maxCount: 1 }]), postB
 app.post('/newProduct', upload.fields([{ name: 'prodImg', maxCount: 15 }]), newProductF)
 
 app.get('/getProducts', getProductsF)
+
+app.post('/chgFeatured', chgFeaturedF)
+
+app.post('/chgActive', chgActiveF)
+
+app.get('/editProduct/:id', editProductF)
+
+app.post('/editProductData', upload.fields([{ name: 'prodImages', maxCount: 15 }]), editProductDataF)
 
 export default app;

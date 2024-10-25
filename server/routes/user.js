@@ -2,7 +2,7 @@ import express from 'express'
 
 import {
     login2F, getBannerF, getCategoryF, getSubCatF,
-    prodDetailsF
+    prodDetailsF, featuredPF
 } from '../controllers/user.js';
 
 const app = express.Router();
@@ -17,6 +17,8 @@ app.get('/getCategory', getCategoryF)
 app.get('/getSubCat', getSubCatF)
 
 app.get('/prodDetails/:id', prodDetailsF)
+
+app.get("/featuredP", featuredPF)
 
 
 

@@ -38,8 +38,9 @@ const ContactPage = () => {
                     <div className='flex flex-row  gap-24 mb-12'>
                         <div>
                             <p className='text-xl font-semibold font-font1'>Address:</p>
-                            <p className='font-font1'>xxxxxxxxx</p>
-                            <p className='font-font1'>xxxxxxxx</p>
+                            <p className='font-font1'>A, Shree Sadgurunivas Society., 16/5/1 Hingane Khurd,
+                                Near Manik Baugh, Sinhgad Road, Pune : 411051 (India)</p>
+
                         </div>
 
                         <div>
@@ -52,8 +53,8 @@ const ContactPage = () => {
                     <div className='flex flex-row gap-24 mb-12'>
                         <div>
                             <p className='text-xl font-semibold font-font1'>Contacts:</p>
-                            <p>xxxxxxxxx</p>
-                            <p>xxxxxxxx</p>
+                            <p className='font-font1'>+ 91 9850588864</p>
+
                         </div>
 
                         <div>
@@ -66,8 +67,7 @@ const ContactPage = () => {
                     <div className='flex flex-row gap-24'>
                         <div>
                             <p className='text-xl font-semibold font-font1'>Follow Us:</p>
-                            <p>xxxxxxxxx</p>
-                            <p>xxxxxxxx</p>
+
                         </div>
 
 

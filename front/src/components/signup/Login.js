@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import classes from './Login.module.css'
 import axios from 'axios'
 
@@ -13,6 +14,8 @@ const Login = () => {
         password: "",
         confirmPass: ""
     })
+
+    const navigate = useNavigate()
 
     const signLoginHnd = () => {
         setIsSignup(!isSignup)
@@ -37,10 +40,11 @@ const Login = () => {
             try {
                 setIsSubmitting(true)
                 const res = await axios.post("http://localhost:8000/signup", { data })
-                if (res.status == 200) {
+
+                if (res?.status == 200) {
                     setIsSubmitting(false)
                     alert("Account created successfully")
-                } else if (res.status == 400) {
+                } else if (res?.status == 400) {
                     setIsSubmitting(false)
                     alert("data")
                 }
@@ -57,21 +61,28 @@ const Login = () => {
             try {
                 setIsSubmitting(true)
                 const res = await axios.post("http://localhost:8000/login", { data })
-                console.log(res.data)
+                console.log(res.data.data)
                 //console.log(res.data['token'])
                 localStorage.setItem('token', res.data['token'])
+                localStorage.setItem('name', res.data.data)
                 setIsSubmitting(false)
                 if (res.status == 200) {
-                    alert("login success")
+                    navigate('/')
                 }
             } catch (err) {
-                setIsSubmitting(false)
-                //console.log(err)
-                if (err.response.status == 401) {
-                    alert("password or mobile number incorrect")
-                } else if (err.response.status == 409) {
-                    alert("No records found, please signup")
+                if (err.response) {
+                    if (err.response.status === 401) {
+                        alert("Password or mobile number incorrect");
+                    } else if (err.response.status === 409) {
+                        alert("No records found, please sign up");
+                    } else {
+                        alert("An error occurred: " + err.response.data.message);
+                    }
+                } else {
+                    alert("Network error, please try again later.");
                 }
+            } finally {
+                setIsSubmitting(false);
             }
 
         }
