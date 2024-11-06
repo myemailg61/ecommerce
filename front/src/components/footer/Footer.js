@@ -21,8 +21,8 @@ const Footer = () => {
             </div>
             <div className='w-2/12 '>
                 <p className=' text-xl font-medium'>Company</p>
-                <p className=' mt-2 text-base font-font1'>Terms & Conditions</p>
-                <p className=' mt-2 text-base font-font1'>Privacy Policy</p>
+                <Link to='/terms'><p className=' mt-2 text-base font-font1'>Terms & Conditions</p></Link>
+                <Link to='/privacy'><p className=' mt-2 text-base font-font1'>Privacy Policy</p></Link>
             </div>
             <div className='w-3/12 '>
                 <p className=' text-xl font-medium'>Contact Us</p>

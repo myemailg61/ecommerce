@@ -11,9 +11,11 @@ import jwt from 'jsonwebtoken'
 import bodyParser from 'body-parser'
 import path from 'path'
 import multer from 'multer'
+import cookieParser from 'cookie-parser';
 
 const app = express()
 app.use(express.json())
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use("/banner", express.static("banner"))
 
@@ -64,7 +66,16 @@ app.post("/login", (req, res) => {
                 if (password == data[0].password) {
                     //console.log("match")
                     const token = jwt.sign({ id: data[0].cid }, JWT_SECRET, { expiresIn: '1h' });
-                    res.status(200).json({ "data": data[0].name, "token": token })
+
+                    // Set the token in a cookie
+                    res.cookie('token', token, {
+                        httpOnly: true, // Prevents JavaScript access
+                        //secure: process.env.NODE_ENV === 'prodcution', // Use secure cookies in production
+                        secure: false,
+                        maxAge: 3600000, // 1 hour
+                    });
+
+                    res.status(200).json({ "data": data[0].name, "role": data[0].role, "token": token })
                 } else {
                     res.status(401).send("password Incorrect")
                 }

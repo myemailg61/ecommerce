@@ -9,6 +9,9 @@ module.exports = {
         font1: ['Font1', 'poppins'],
 
       },
+      backgroundImage: {
+        'blue-gradient': 'linear-gradient(135deg, #4a90e2, #003366)',
+      },
     },
   },
   plugins: [],

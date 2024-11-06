@@ -30,11 +30,11 @@ const Categories = () => {
     }
 
     return (
-        <div className='mt-16'>
+        <div className='mt-4 bg-gray-100 w-full mr-4'>
 
-            <div className='flex flex-row justify-between'>
+            <div className='flex flex-row justify-between w-full'>
                 {/* category div start */}
-                <div className=' inline-block border border-solid border-gray-500 rounded-lg'>
+                <div className=' inline-block w-full border border-solid border-gray-500 rounded-lg'>
                     <div className='bg-black w-full py-2 px-1'>
                         <p className='font-font1 bg-black text-white text-xl text-center font-semibold'>All Categories</p>
                     </div>
@@ -43,7 +43,7 @@ const Categories = () => {
                         {categories.map((item, index) => (
                             <div
                                 key={index}
-                                className='relative inline-block'
+                                className='relative inline-block bg-red-100'
                                 onMouseEnter={() => setOpenDropdown(index)}
                                 onMouseLeave={() => {
                                     setOpenDropdown(null);
@@ -51,12 +51,12 @@ const Categories = () => {
                                 }}
                             >
                                 <button
-                                    className="bg-rose-200 border-2 border-solid border-rose-500 text-black py-2 px-4 rounded-lg my-1 mx-2 font-semibold hover:bg-rose-500 focus:outline-none"
+                                    className="bg-rose-200 w-full  border-2 border-solid border-rose-500 text-black py-2 px-4 rounded-lg my-1 font-semibold hover:bg-rose-500 focus:outline-none"
                                 >
                                     {item.category}
                                 </button>
                                 {openDropdown === index && (
-                                    <div key={index} className="absolute left-full top-0 w-40 bg-white shadow-lg rounded-lg">
+                                    <div key={index} className="absolute left-full top-0 w-40 z-10 bg-white shadow-lg rounded-lg">
                                         {Object.keys(item).reduce((acc, key) => {
                                             if (key !== "category") {
                                                 acc.push(key);
@@ -95,9 +95,9 @@ const Categories = () => {
                 {/* categories div  */}
 
                 {/* featured Prod Div */}
-                <div className=' w-10/12  border border-solid border-gray-200 rounded-lg'>
+                {/* <div className=' w-10/12  border border-solid border-gray-200 rounded-lg'>
                     <FeaturedList></FeaturedList>
-                </div>
+                </div> */}
 
             </div>
         </div>

@@ -102,7 +102,7 @@ const newProductF = (req, res) => {
 };
 
 const editProductDataF = (req, res) => {
-    const { name, category, subCategory1, subCategory2, price, manufacturerName, description,
+    const { id, name, category, subCategory1, subCategory2, price, manufacturerName, description,
         quantity, gst, minPurchase, docLinks, location, shipping, prodWeight, dimensions,
         faqs, options, oldPics
     } = req.body
@@ -121,20 +121,31 @@ const editProductDataF = (req, res) => {
         subCategory2,
         price,
         manufacturerName,
+        docLinks,
         description,
         quantity,
-        gst,
-        minPurchase,
-        docLinks,
         location,
         shipping,
         prodWeight,
         dimensionStr,
+        gst,
+        minPurchase,
+        pics,
         faqStr,
         optionsStr,
-
-        pics
     ]
+
+    const q = "UPDATE products SET `name`=?,`category`=?,`subCategory1`=?,`subCategory2`=?,`price`=?,`manufacturerName`=?,`docLinks`=?,`description`=?,`quantity`=?,`location`=?,`shipping`=?,`prodWeight`=?,`dimensions`=?,`gst`=?,`minPurchase`=?,`prodImages`=?,`faq`=?,`options`=? WHERE id=?";
+
+    db.query(q, [...values, id], (err, data) => {
+        if (err) {
+            console.log(err)
+            res.status(500).send({ error: err.message })
+        } else {
+            console.log(data)
+            res.status(200).send("success")
+        }
+    })
 
     console.log(values, " editProd")
 

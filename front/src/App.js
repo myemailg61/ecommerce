@@ -9,6 +9,8 @@ import Login from './components/signup/Login';
 import CategoryProducts from './components/pages/CategoryProducts';
 import SubCategoryProduct from './components/pages/SubCategoryProduct';
 import Cart from './components/pages/Cart';
+import Privacy from './components/pages/Privacy';
+import Terms from './components/pages/Terms';
 
 import Product from './pages/Admin/Product';
 import ProductsList from './pages/Admin/ProductsList';
@@ -32,6 +34,8 @@ const router = createBrowserRouter([{
     { path: "/subCategoryProduct", element: <SubCategoryProduct></SubCategoryProduct> },
     { path: "/details/:id", element: <ProductDetails></ProductDetails> },
     { path: "/cart", element: <Cart></Cart> },
+    { path: "/terms", element: <Terms></Terms> },
+    { path: "/privacy", element: <Privacy></Privacy> },
 
 
     { path: "/adminDashboard", element: <Dashboard></Dashboard> },

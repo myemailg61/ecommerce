@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import classes from './Login.module.css'
 import axios from 'axios'
+import Cookies from 'js-cookie';
 
 const Login = () => {
     const [pass, setPass] = useState(false)
@@ -60,14 +61,16 @@ const Login = () => {
         if (!isSignup) {
             try {
                 setIsSubmitting(true)
-                const res = await axios.post("http://localhost:8000/login", { data })
+                const res = await axios.post("http://localhost:8000/login", { data }, { withCredentials: true })
                 console.log(res.data.data)
                 //console.log(res.data['token'])
-                localStorage.setItem('token', res.data['token'])
+                //localStorage.setItem('token', res.data['token'])
+                Cookies.set('token2', res.data.data)
                 localStorage.setItem('name', res.data.data)
                 setIsSubmitting(false)
                 if (res.status == 200) {
                     navigate('/')
+                    window.location.reload()
                 }
             } catch (err) {
                 if (err.response) {

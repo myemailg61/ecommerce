@@ -7,6 +7,7 @@ const ProdEdit = () => {
     const [isLoading, setIsLoading] = useState(true);
     const { id } = useParams()
     const [pic, setPic] = useState(null)
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     useEffect(() => {
         const getData = async () => {
@@ -138,6 +139,7 @@ const ProdEdit = () => {
 
         const formData = new FormData()
 
+        formData.append('id', data.id)
         formData.append('name', data.name)
         formData.append('category', data.category)
         formData.append('subCategory1', data.subCategory1)
@@ -179,11 +181,17 @@ const ProdEdit = () => {
 
 
         try {
+            setIsSubmitting(true)
             const res = await axios.post("http://localhost:8000/admin/editProductData", formData)
-            console.log(res.data)
+            if (res.status == 200) {
+                setIsSubmitting(false)
+                alert("Updated Successfully")
+            }
 
         } catch (err) {
-            console.log(err)
+            setIsSubmitting(false)
+            //console.log(err)
+            alert("Data not updated")
         }
 
     }
@@ -387,7 +395,7 @@ const ProdEdit = () => {
 
                     </div>
 
-                    <button className='bg-green-700 mx-auto block mt-12 px-12 text-white font-font1 text-xl font-semibold py-3 rounded-md hover:bg-green-800'>Submit</button>
+                    <button disabled={isSubmitting} className='bg-green-700 mx-auto block mt-12 px-12 text-white font-font1 text-xl font-semibold py-3 rounded-md hover:bg-green-800'>{isSubmitting ? "Wait ..." : "Submit"}</button>
                 </form>
             </div>
 

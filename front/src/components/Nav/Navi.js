@@ -1,18 +1,38 @@
 // Navbar.js
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { useSelector } from 'react-redux';
+
+import cart from '../asset/cart.png'
 
 const Navi = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [userName, setUserName] = useState(null)
+    const counter = useSelector(state => state.cart)
+
+    const navigate = useNavigate()
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
 
+    const logHandle = () => {
+        if (!userName) {
+            navigate('/login')
+        } else {
+            Cookies.remove('token2')
+            window.location.reload()
+        }
+    }
+
     useEffect(() => {
-        setUserName(localStorage.getItem('name'))
+        //setUserName(localStorage.getItem('name'))
+        const user = Cookies.get('token2')
+        if (user) {
+            setUserName(user)
+        }
     }, [])
 
     return (
@@ -45,7 +65,12 @@ const Navi = () => {
 
                         {userName && <p className='text-white font-font1 text-lg font-semibold'>{userName.toUpperCase()}</p>}
 
-                        <Link to='/login'> <button className='bg-white px-4 py-1 font-font1 rounded-lg hover:bg-gray-200'>{userName ? 'Logout' : 'Login'}</button></Link>
+                        <button onClick={logHandle} className='bg-white px-4 py-1 font-font1 rounded-lg hover:bg-gray-200'>{userName ? 'Logout' : 'Login'}</button>
+
+                        <div className='flex flex-row'>
+                            <Link to='/cart'><img src={cart} className='w-8'></img></Link>
+                            <p className='text-white ml-2 font-medium'>{counter.length}</p>
+                        </div>
                     </div>
                     <div className="-mr-2 flex md:hidden">
                         <button

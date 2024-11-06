@@ -118,6 +118,25 @@ const featuredPF = (req, res) => {
             res.status(201).send(data)
         }
     })
+};
+
+const addToCartF = (req, res) => {
+    const { productId } = req.body
+    const cid = req.cid
+
+    const values = [cid, productId, 1]
+
+    const q = "INSERT INTO orders (`userId`,`productId`,`quantity`) VALUES (?)"
+
+    db.query(q, [[...values]], (err, data) => {
+        if (err) {
+            //console.log(err)
+            res.status(500).send({ 'message': err.message })
+        } else {
+            //console.log(data)
+            res.status(200).send({ 'message': 'success' })
+        }
+    })
 }
 
 
@@ -127,4 +146,7 @@ const featuredPF = (req, res) => {
 
 
 
-export { login2F, getBannerF, getCategoryF, getSubCatF, prodDetailsF, featuredPF }
+export {
+    login2F, getBannerF, getCategoryF, getSubCatF, prodDetailsF, featuredPF,
+    addToCartF
+}
